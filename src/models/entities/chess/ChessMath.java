@@ -1,7 +1,6 @@
 package models.entities.chess;
 
 import models.entities.boardGame.Board;
-import models.entities.boardGame.Position;
 import models.entities.chess.chessPieces.King;
 import models.entities.chess.chessPieces.Rook;
 import models.entities.chess.enuns.EnumColor;
@@ -23,10 +22,13 @@ public class ChessMath {
         }
         return mat;
     }
+    private void placeNewPiece(char column, int row, ChessPiece piece){
+        board.placePiece(piece, new ChessPostion(column, row).toPosition());
+    }
 
     private void initialSetup(){
-        board.placePiece(new Rook(board, EnumColor.WHITE), new Position(2,1));
-        board.placePiece(new King(board, EnumColor.BLACK), new Position(0,4));
-        board.placePiece(new King(board, EnumColor.WHITE), new Position(7,4));
+        placeNewPiece('b', 6, new Rook(board, EnumColor.WHITE));
+        placeNewPiece('e', 8, new King(board, EnumColor.BLACK));
+        placeNewPiece('e', 1, new King(board, EnumColor.WHITE));
     }
 }
