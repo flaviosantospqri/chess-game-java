@@ -51,6 +51,9 @@ public class ChessMath {
         if(!board.thereIsAPiece(position)){
             throw new ChessExcetions("There is no piece on source position");
         }
+        if(!board.piece(position).isThereAnyPossibleMove()){
+            throw new ChessExcetions("Not exists possible move for chosen piece ");
+        }
     }
 
     private void placeNewPiece(char column, int row, ChessPiece piece){

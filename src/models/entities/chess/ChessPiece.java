@@ -5,7 +5,7 @@ import models.entities.boardGame.Piece;
 import models.entities.chess.enuns.EnumColor;
 
 
-public class ChessPiece extends Piece {
+public abstract class ChessPiece extends Piece {
     private EnumColor color;
 
     public ChessPiece(Board board, EnumColor color) {
