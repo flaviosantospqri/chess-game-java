@@ -24,36 +24,36 @@ public class Rook extends ChessPiece {
         //Above
         p.setValues(position.getRow() -1, position.getColumn());
         while (getBoard().positionsExists(p) && !getBoard().thereIsAPiece(p)){
-            mat[p.getRow()][position.getColumn()] = true;
+            mat[p.getRow()][p.getColumn()] = true;
             p.setRow(p.getRow() - 1);
         }if(getBoard().positionsExists(p) && isThereOpponentPiece(p)){
-            mat[p.getRow()][position.getColumn()] = true;
+            mat[p.getRow()][p.getColumn()] = true;
         }
 
         //left
         p.setValues(position.getRow(), position.getColumn() - 1);
         while (getBoard().positionsExists(p) && !getBoard().thereIsAPiece(p)){
-            mat[p.getRow()][position.getColumn()] = true;
+            mat[p.getRow()][p.getColumn()] = true;
             p.setColumn(p.getColumn() - 1);
         }if(getBoard().positionsExists(p) && isThereOpponentPiece(p)){
-            mat[p.getRow()][position.getColumn()] = true;
+            mat[p.getRow()][p.getColumn()] = true;
         }
 
         //rigth
-        p.setValues(position.getRow() -1, position.getColumn() + 1);
+        p.setValues(position.getRow(), position.getColumn() + 1);
         while (getBoard().positionsExists(p) && !getBoard().thereIsAPiece(p)){
-            mat[p.getRow()][position.getColumn()] = true;
+            mat[p.getRow()][p.getColumn()] = true;
             p.setColumn(p.getColumn() + 1);
         }if(getBoard().positionsExists(p) && isThereOpponentPiece(p)){
-            mat[p.getRow()][position.getColumn()] = true;
+            mat[p.getRow()][p.getColumn()] = true;
         }
         //below
         p.setValues(position.getRow() +1, position.getColumn());
         while (getBoard().positionsExists(p) && !getBoard().thereIsAPiece(p)){
-            mat[p.getRow()][position.getColumn()] = true;
+            mat[p.getRow()][p.getColumn()] = true;
             p.setRow(p.getRow() + 1);
         }if(getBoard().positionsExists(p) && isThereOpponentPiece(p)){
-            mat[p.getRow()][position.getColumn()] = true;
+            mat[p.getRow()][p.getColumn()] = true;
         }
 
         return mat;
