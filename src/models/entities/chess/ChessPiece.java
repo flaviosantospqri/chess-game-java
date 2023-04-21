@@ -2,6 +2,7 @@ package models.entities.chess;
 
 import models.entities.boardGame.Board;
 import models.entities.boardGame.Piece;
+import models.entities.boardGame.Position;
 import models.entities.chess.enuns.EnumColor;
 
 
@@ -15,6 +16,12 @@ public abstract class ChessPiece extends Piece {
 
     public EnumColor getColor() {
         return color;
+    }
+
+    protected boolean isThereOpponentPiece(Position position){
+        ChessPiece p = (ChessPiece)getBoard().piece(position);
+
+        return p != null && p.getColor() != color;
     }
 
 }
