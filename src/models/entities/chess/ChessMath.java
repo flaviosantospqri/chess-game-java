@@ -1,9 +1,14 @@
 package models.entities.chess;
 
 import models.entities.boardGame.Board;
+import models.entities.boardGame.Piece;
+import models.entities.boardGame.Position;
+import models.entities.chess.Exceptions.ChessExcetions;
 import models.entities.chess.chessPieces.King;
 import models.entities.chess.chessPieces.Rook;
 import models.entities.chess.enuns.EnumColor;
+
+import javax.xml.transform.Source;
 
 public class ChessMath {
     private Board board;
@@ -22,6 +27,32 @@ public class ChessMath {
         }
         return mat;
     }
+
+    public ChessPiece performChessMove(ChessPostion sourcePosition, ChessPostion targetPosition){
+        Position source = sourcePosition.toPosition();
+        Position target = targetPosition.toPosition();
+
+        validateSourcePosition(source);
+
+        Piece capturedPiece = makeMove(source, target);
+        return (ChessPiece)capturedPiece;
+    }
+
+    private Piece makeMove(Position source, Position target) {
+        Piece p = board.removePiece(source);
+        Piece capturedPiece = board.removePiece(target);
+
+        board.placePiece(p,target);
+
+        return capturedPiece;
+    }
+
+    private void validateSourcePosition(Position position) {
+        if(!board.thereIsAPiece(position)){
+            throw new ChessExcetions("There is no piece on source position");
+        }
+    }
+
     private void placeNewPiece(char column, int row, ChessPiece piece){
         board.placePiece(piece, new ChessPostion(column, row).toPosition());
     }
