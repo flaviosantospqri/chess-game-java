@@ -8,10 +8,15 @@ import models.entities.chess.chessPieces.King;
 import models.entities.chess.chessPieces.Rook;
 import models.entities.chess.enuns.EnumColor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ChessMath {
     private int turn;
     private EnumColor currentPlayer;
     private Board board;
+    private List<Piece> piecesOnTheBoard = new ArrayList<>();
+    private List<Piece> capturedPieces = new ArrayList<>();
 
     public ChessMath() {
         board = new Board(8, 8);
@@ -58,6 +63,10 @@ public class ChessMath {
     private Piece makeMove(Position source, Position target) {
         Piece p = board.removePiece(source);
         Piece capturedPiece = board.removePiece(target);
+        if(capturedPiece != null){
+            piecesOnTheBoard.remove(capturedPiece);
+            capturedPieces.add(capturedPiece);
+        }
         board.placePiece(p,target);
 
         return capturedPiece;
@@ -83,6 +92,7 @@ public class ChessMath {
 
     private void placeNewPiece(char column, int row, ChessPiece piece){
         board.placePiece(piece, new ChessPostion(column, row).toPosition());
+        piecesOnTheBoard.add(piece);
     }
 
     private void nextTurn(){
