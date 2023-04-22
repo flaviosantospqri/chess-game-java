@@ -1,3 +1,4 @@
+import models.entities.chess.ChessMath;
 import models.entities.chess.ChessPiece;
 import models.entities.chess.ChessPostion;
 import models.entities.chess.enuns.EnumColor;
@@ -52,6 +53,13 @@ public class UI {
             System.out.println();
         }
 
+    }
+
+    public static void printMatch(ChessMath chessMath){
+        printBoard(chessMath.getPieces());
+        System.out.println();
+        System.out.println("Turn : " + chessMath.getTurn());
+        System.out.println("Waiting player: " + chessMath.getCurrentPlayer());
     }
 
     public static void printBoard(ChessPiece[][] pieces, boolean[][] possibleMoves){

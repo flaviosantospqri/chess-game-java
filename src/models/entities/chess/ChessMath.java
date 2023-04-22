@@ -8,14 +8,24 @@ import models.entities.chess.chessPieces.King;
 import models.entities.chess.chessPieces.Rook;
 import models.entities.chess.enuns.EnumColor;
 
-import javax.xml.transform.Source;
-
 public class ChessMath {
+    private int turn;
+    private EnumColor currentPlayer;
     private Board board;
 
     public ChessMath() {
         board = new Board(8, 8);
+        turn = 1;
+        currentPlayer = EnumColor.WHITE;
         initialSetup();
+    }
+
+    public int getTurn(){
+        return turn;
+    }
+
+    public EnumColor getCurrentPlayer() {
+        return currentPlayer;
     }
 
     public ChessPiece[][] getPieces() {
@@ -41,6 +51,7 @@ public class ChessMath {
         validateSourcePosition(source);
         validateTargetPosition(source, target);
         Piece capturedPiece = makeMove(source, target);
+        nextTurn();
         return (ChessPiece)capturedPiece;
     }
 
@@ -56,6 +67,9 @@ public class ChessMath {
         if(!board.thereIsAPiece(position)){
             throw new ChessExcetions("There is no piece on source position");
         }
+        if(currentPlayer != ((ChessPiece)board.piece(position)).getColor()){
+            throw new ChessExcetions("The chosen piece is not yours");
+        }
         if(!board.piece(position).isThereAnyPossibleMove()){
             throw new ChessExcetions("Not exists possible move for chosen piece ");
         }
@@ -69,6 +83,11 @@ public class ChessMath {
 
     private void placeNewPiece(char column, int row, ChessPiece piece){
         board.placePiece(piece, new ChessPostion(column, row).toPosition());
+    }
+
+    private void nextTurn(){
+        turn++;
+        currentPlayer = (currentPlayer == EnumColor.WHITE) ? EnumColor.BLACK : EnumColor.WHITE;
     }
 
     private void initialSetup(){
