@@ -40,9 +40,10 @@ public class program {
                 }
 
             }catch (ChessExcetions | InputMismatchException e){
-                System.out.println("Ops ->" + e.getMessage());
-                sc.nextLine();
+              System.out.println("Ops ->" + e.getMessage());
+              sc.nextLine();
             }
+
 
         }
     }
