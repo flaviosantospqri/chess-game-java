@@ -1,4 +1,3 @@
-import models.entities.boardGame.Board;
 import models.entities.chess.ChessMath;
 import models.entities.chess.ChessPiece;
 import models.entities.chess.ChessPostion;

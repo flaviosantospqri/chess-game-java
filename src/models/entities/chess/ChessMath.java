@@ -4,6 +4,7 @@ import models.entities.boardGame.Board;
 import models.entities.boardGame.Piece;
 import models.entities.boardGame.Position;
 import models.entities.chess.Exceptions.ChessExcetions;
+import models.entities.chess.chessPieces.Bishop;
 import models.entities.chess.chessPieces.King;
 import models.entities.chess.chessPieces.Pawn;
 import models.entities.chess.chessPieces.Rook;
@@ -192,7 +193,9 @@ public class ChessMath {
 
     private void initialSetup(){
         placeNewPiece('a', 1, new Rook(board, EnumColor.WHITE));
+        placeNewPiece('c', 1, new Bishop(board, EnumColor.WHITE));
         placeNewPiece('e', 1, new King(board, EnumColor.WHITE));
+        placeNewPiece('f', 1, new Bishop(board, EnumColor.WHITE));
         placeNewPiece('h', 1, new Rook(board, EnumColor.WHITE));
         placeNewPiece('a', 2, new Pawn(board, EnumColor.WHITE));
         placeNewPiece('b', 2, new Pawn(board, EnumColor.WHITE));
@@ -204,7 +207,9 @@ public class ChessMath {
         placeNewPiece('h', 2, new Pawn(board, EnumColor.WHITE));
 
         placeNewPiece('a', 8, new Rook(board, EnumColor.BLACK));
+        placeNewPiece('c', 8, new Bishop(board, EnumColor.BLACK));
         placeNewPiece('e', 8, new King(board, EnumColor.BLACK));
+        placeNewPiece('f', 8, new Bishop(board, EnumColor.BLACK));
         placeNewPiece('h', 8, new Rook(board, EnumColor.BLACK));
         placeNewPiece('a', 7, new Pawn(board, EnumColor.BLACK));
         placeNewPiece('b', 7, new Pawn(board, EnumColor.BLACK));
