@@ -5,6 +5,7 @@ import models.entities.boardGame.Piece;
 import models.entities.boardGame.Position;
 import models.entities.chess.Exceptions.ChessExcetions;
 import models.entities.chess.chessPieces.King;
+import models.entities.chess.chessPieces.Pawn;
 import models.entities.chess.chessPieces.Rook;
 import models.entities.chess.enuns.EnumColor;
 
@@ -190,12 +191,29 @@ public class ChessMath {
     }
 
     private void initialSetup(){
-        placeNewPiece('h', 7, new Rook(board, EnumColor.WHITE));
-        placeNewPiece('d', 1, new Rook(board, EnumColor.WHITE));
+        placeNewPiece('a', 1, new Rook(board, EnumColor.WHITE));
         placeNewPiece('e', 1, new King(board, EnumColor.WHITE));
+        placeNewPiece('h', 1, new Rook(board, EnumColor.WHITE));
+        placeNewPiece('a', 2, new Pawn(board, EnumColor.WHITE));
+        placeNewPiece('b', 2, new Pawn(board, EnumColor.WHITE));
+        placeNewPiece('c', 2, new Pawn(board, EnumColor.WHITE));
+        placeNewPiece('d', 2, new Pawn(board, EnumColor.WHITE));
+        placeNewPiece('e', 2, new Pawn(board, EnumColor.WHITE));
+        placeNewPiece('f', 2, new Pawn(board, EnumColor.WHITE));
+        placeNewPiece('g', 2, new Pawn(board, EnumColor.WHITE));
+        placeNewPiece('h', 2, new Pawn(board, EnumColor.WHITE));
 
-        placeNewPiece('b', 8, new Rook(board, EnumColor.BLACK));
-        placeNewPiece('a', 8, new King(board, EnumColor.BLACK));
+        placeNewPiece('a', 8, new Rook(board, EnumColor.BLACK));
+        placeNewPiece('e', 8, new King(board, EnumColor.BLACK));
+        placeNewPiece('h', 8, new Rook(board, EnumColor.BLACK));
+        placeNewPiece('a', 7, new Pawn(board, EnumColor.BLACK));
+        placeNewPiece('b', 7, new Pawn(board, EnumColor.BLACK));
+        placeNewPiece('c', 7, new Pawn(board, EnumColor.BLACK));
+        placeNewPiece('d', 7, new Pawn(board, EnumColor.BLACK));
+        placeNewPiece('e', 7, new Pawn(board, EnumColor.BLACK));
+        placeNewPiece('f', 7, new Pawn(board, EnumColor.BLACK));
+        placeNewPiece('g', 7, new Pawn(board, EnumColor.BLACK));
+        placeNewPiece('h', 7, new Pawn(board, EnumColor.BLACK));
 
     }
 }
