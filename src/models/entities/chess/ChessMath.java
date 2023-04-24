@@ -192,6 +192,7 @@ public class ChessMath {
         placeNewPiece('a', 1, new Rook(board, EnumColor.WHITE));
         placeNewPiece('b', 1, new Knigth(board, EnumColor.WHITE));
         placeNewPiece('c', 1, new Bishop(board, EnumColor.WHITE));
+        placeNewPiece('d', 1, new Queen(board, EnumColor.WHITE));
         placeNewPiece('e', 1, new King(board, EnumColor.WHITE));
         placeNewPiece('f', 1, new Bishop(board, EnumColor.WHITE));
         placeNewPiece('h', 1, new Rook(board, EnumColor.WHITE));
@@ -208,6 +209,7 @@ public class ChessMath {
         placeNewPiece('a', 8, new Rook(board, EnumColor.BLACK));
         placeNewPiece('b', 8, new Knigth(board, EnumColor.BLACK));
         placeNewPiece('c', 8, new Bishop(board, EnumColor.BLACK));
+        placeNewPiece('d', 8, new Queen(board, EnumColor.BLACK));
         placeNewPiece('e', 8, new King(board, EnumColor.BLACK));
         placeNewPiece('f', 8, new Bishop(board, EnumColor.BLACK));
         placeNewPiece('h', 8, new Rook(board, EnumColor.BLACK));
