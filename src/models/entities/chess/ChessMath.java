@@ -7,8 +7,6 @@ import models.entities.chess.Exceptions.ChessExcetions;
 import models.entities.chess.chessPieces.*;
 import models.entities.chess.enuns.EnumColor;
 
-import java.lang.reflect.Type;
-import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -171,7 +169,7 @@ public class ChessMath {
             throw new IllegalArgumentException("There is no piece be promoted");
         }
         if(!type.equals("B") && !type.equals("N") && !type.equals("R") && !type.equals("Q")){
-            throw new InvalidParameterException("Ivalid promotion");
+            return promoted;
         }
 
         Position pos = promoted.getChessPosition().toPosition();
