@@ -19,6 +19,7 @@ public class ChessMath {
     private List<Piece> capturedPieces = new ArrayList<>();
     private boolean checkMate;
     private boolean check;
+    private ChessPiece enPassantVulnerable;
 
     public ChessMath() {
         board = new Board(8, 8);
@@ -46,6 +47,10 @@ public class ChessMath {
 
     public EnumColor opponent(EnumColor color){
         return (color == EnumColor.WHITE) ? EnumColor.BLACK : EnumColor.WHITE;
+    }
+
+    public ChessPiece getEnPassantVulnerable() {
+        return enPassantVulnerable;
     }
 
     private ChessPiece king(EnumColor color){
@@ -126,12 +131,24 @@ public class ChessMath {
             throw new ChessExcetions("You can't put yourself in check");
         }
 
-        check = testCheck(opponent(currentPlayer));
+        ChessPiece movedPiece = (ChessPiece) board.piece(target);
+
+
+        check = testCheck(opponent(currentPlayer)) ? true: false;
 
         if(testCheckMate(opponent(currentPlayer))){
             checkMate = true;
+        }else {
+            nextTurn();
         }
-        nextTurn();
+        // #special move en passant
+
+        if(movedPiece instanceof Pawn && (target.getRow() == source.getRow() - 2 || target.getRow() == source.getRow() + 2)){
+            enPassantVulnerable = movedPiece;
+        }else {
+            enPassantVulnerable = null;
+        }
+
         return (ChessPiece)capturedPiece;
     }
 
@@ -153,6 +170,7 @@ public class ChessMath {
             rook.increaseMoveCount();
 
         }
+
         //#Special castling kingside rook
         if(p instanceof King && target.getColumn() == source.getColumn() + 2){
             Position sourceT = new Position(source.getRow(), source.getColumn() + 3);
@@ -161,6 +179,20 @@ public class ChessMath {
             board.placePiece(rook, targetT);
             rook.increaseMoveCount();
 
+        }
+
+        if(p instanceof Pawn){
+            if(source.getColumn() != target.getColumn() && capturedPiece == null){
+                Position pawnPosition;
+                if(p.getColor() == EnumColor.WHITE){
+                    pawnPosition = new Position(target.getRow() + 1, target.getColumn());
+                }else {
+                    pawnPosition = new Position(target.getRow() - 1, target.getColumn());
+                }
+                capturedPiece = board.removePiece(pawnPosition);
+                capturedPieces.add(capturedPiece);
+                piecesOnTheBoard.remove(capturedPiece);
+            }
         }
         return capturedPiece;
     }
@@ -192,6 +224,19 @@ public class ChessMath {
             board.placePiece(rook, sourceT);
             rook.decreaseMoveCount();
 
+        }
+
+        if(p instanceof Pawn){
+            if(source.getColumn() != target.getColumn() && capturedPiece == enPassantVulnerable){
+                ChessPiece pawn = (ChessPiece)board.removePiece(target);
+                Position pawnPosition;
+                if(p.getColor() == EnumColor.WHITE){
+                    pawnPosition = new Position(3, target.getColumn());
+                }else {
+                    pawnPosition = new Position(4, target.getColumn());
+                }
+                board.placePiece(pawn, pawnPosition);
+            }
         }
     }
 
@@ -231,15 +276,15 @@ public class ChessMath {
         placeNewPiece('e', 1, new King(board, EnumColor.WHITE, this));
         placeNewPiece('f', 1, new Bishop(board, EnumColor.WHITE));
         placeNewPiece('h', 1, new Rook(board, EnumColor.WHITE));
-        placeNewPiece('a', 2, new Pawn(board, EnumColor.WHITE));
-        placeNewPiece('b', 2, new Pawn(board, EnumColor.WHITE));
-        placeNewPiece('c', 2, new Pawn(board, EnumColor.WHITE));
-        placeNewPiece('d', 2, new Pawn(board, EnumColor.WHITE));
-        placeNewPiece('e', 2, new Pawn(board, EnumColor.WHITE));
-        placeNewPiece('f', 2, new Pawn(board, EnumColor.WHITE));
-        placeNewPiece('g', 2, new Pawn(board, EnumColor.WHITE));
+        placeNewPiece('a', 2, new Pawn(board, EnumColor.WHITE, this));
+        placeNewPiece('b', 2, new Pawn(board, EnumColor.WHITE, this));
+        placeNewPiece('c', 2, new Pawn(board, EnumColor.WHITE, this));
+        placeNewPiece('d', 2, new Pawn(board, EnumColor.WHITE, this));
+        placeNewPiece('e', 2, new Pawn(board, EnumColor.WHITE, this));
+        placeNewPiece('f', 2, new Pawn(board, EnumColor.WHITE, this));
+        placeNewPiece('g', 2, new Pawn(board, EnumColor.WHITE, this));
         placeNewPiece('g', 1, new Knigth(board, EnumColor.WHITE));
-        placeNewPiece('h', 2, new Pawn(board, EnumColor.WHITE));
+        placeNewPiece('h', 2, new Pawn(board, EnumColor.WHITE, this));
 
         placeNewPiece('a', 8, new Rook(board, EnumColor.BLACK));
         placeNewPiece('b', 8, new Knigth(board, EnumColor.BLACK));
@@ -248,15 +293,15 @@ public class ChessMath {
         placeNewPiece('e', 8, new King(board, EnumColor.BLACK, this));
         placeNewPiece('f', 8, new Bishop(board, EnumColor.BLACK));
         placeNewPiece('h', 8, new Rook(board, EnumColor.BLACK));
-        placeNewPiece('a', 7, new Pawn(board, EnumColor.BLACK));
-        placeNewPiece('b', 7, new Pawn(board, EnumColor.BLACK));
-        placeNewPiece('c', 7, new Pawn(board, EnumColor.BLACK));
-        placeNewPiece('d', 7, new Pawn(board, EnumColor.BLACK));
-        placeNewPiece('e', 7, new Pawn(board, EnumColor.BLACK));
-        placeNewPiece('f', 7, new Pawn(board, EnumColor.BLACK));
+        placeNewPiece('a', 7, new Pawn(board, EnumColor.BLACK, this));
+        placeNewPiece('b', 7, new Pawn(board, EnumColor.BLACK, this));
+        placeNewPiece('c', 7, new Pawn(board, EnumColor.BLACK, this));
+        placeNewPiece('d', 7, new Pawn(board, EnumColor.BLACK, this));
+        placeNewPiece('e', 7, new Pawn(board, EnumColor.BLACK, this));
+        placeNewPiece('f', 7, new Pawn(board, EnumColor.BLACK, this));
         placeNewPiece('g', 8, new Knigth(board, EnumColor.BLACK));
-        placeNewPiece('g', 7, new Pawn(board, EnumColor.BLACK));
-        placeNewPiece('h', 7, new Pawn(board, EnumColor.BLACK));
+        placeNewPiece('g', 7, new Pawn(board, EnumColor.BLACK, this));
+        placeNewPiece('h', 7, new Pawn(board, EnumColor.BLACK, this));
 
     }
 }
